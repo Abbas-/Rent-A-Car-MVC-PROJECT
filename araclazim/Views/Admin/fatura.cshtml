@@ -1,0 +1,66 @@
+﻿@model Tuple<List<RezervasyonIstekleri>,List<Fatura>,List<Musteri>, List<GelenAraclar>>
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Admin Paneli</title>
+
+    <!-- CSS -->
+    <link href="~/AdminPaneli/css/transdmin.css" rel="stylesheet" type="text/css" media="screen" />
+    <!--[if IE 6]><link rel="stylesheet" type="text/css" media="screen" href="style/css/ie6.css" /><![endif]-->
+    <!--[if IE 7]><link rel="stylesheet" type="text/css" media="screen" href="style/css/ie7.css" /><![endif]-->
+    <!-- JavaScripts-->
+    <script type="text/javascript" src="~/AdminPaneli/js/jquery.js"></script>
+    <script type="text/javascript" src="~/AdminPaneli/js/jNice.js"></script>
+</head>
+
+<body>
+    <div id="wrapper">
+        <!-- h1 tag stays for the logo, you can use the a tag for linking the index page -->
+        <br />
+
+        <!-- You can name the links with lowercase, they will be transformed to uppercase by CSS, we prefered to name them with uppercase to have the same effect with disabled stylesheet -->
+        <ul id="mainNav">
+
+            <li class="logout">@Html.ActionLink("LOGOUT", "Index", "Home")</li>
+        </ul>
+        <!-- // #end mainNav -->
+
+        <div id="containerHolder">
+            <p align="center"><h3 align="center">FATURA BİLGİLERİ</h3></p>
+
+            @foreach (var rezIstek in Model.Item1)
+            {
+
+
+                <label><b>Adı=</b>@rezIstek.musteriId.ad</label><br /><br />
+                <label><b>Soyadı=</b>@rezIstek.musteriId.soyad</label><br /><br />
+                <label><b>İsteğin Yapılış Tarihi ve Zamanı=</b>@rezIstek.istekTarihi</label><br /><br />
+                
+                <label><b>Planlanan Araç Alım Tarihi=</b>@rezIstek.planlananAlimTarihi</label><br /><br />
+                <label><b>Planlanan Araç Teslim Tarihi=</b>@rezIstek.planlananTeslimTarihi</label><br /><br />
+
+            }
+            @foreach (var gelArac in Model.Item4)
+            {
+                <label><b>Araç Teslim Alınma Tarihi=</b>@gelArac.aracTeslimTarih</label><br /><br />
+                <label><b>Hasar Ücreti=</b>@gelArac.hasarUcreti</label><br /><br />
+                <div align="right">
+                    <label><b>TOPLAM TUTAR=</b>@gelArac.faturaId.ucret ₺</label><br /><br />
+                </div>
+               
+            }
+
+            <!-- // #container -->
+        </div>
+        <!-- // #containerHolder -->
+
+
+    </div>
+    <!-- // #wrapper -->
+</body>
+</html>

@@ -1,0 +1,83 @@
+﻿@using iTextSharp.text;
+@using iTextSharp.text.pdf;
+
+@{
+    //Sayfanın çalıştırıldığında PDF dosyası gibi görünebilmesi için header'ını değiştiriyoruz.
+    Response.AddHeader("Content-disposition", "attachment; filename=araclar.pdf");
+    Response.ContentType = "application/octet-stream";
+
+    var araclar = ViewBag.Araclar;
+
+    //Tablo sütunlarını tanımlamak için ilk satırı alıyoruz.
+
+    //var ilkSatir = ViewBag.baslik;
+
+    //PDF dosyası oluşturmak için Document türünden değişken tanımlıyoruz.
+    var pdfDosyasi = new Document();
+
+    //Dosya türünün PDF olacağını belirtiyoruz.
+    PdfWriter.GetInstance(pdfDosyasi, Response.OutputStream);
+
+    //Dosyanın sayfa boyutlarını belirtiyoruz (A4 boyutlarında olsuns)
+    pdfDosyasi.SetPageSize(PageSize.A3.Rotate());
+
+    //Dosyaya ekleme işlemi yapmak için açıyoruz.
+    pdfDosyasi.Open();
+
+
+    //Kayıtları listeleyeceğimiz tabloyu oluşturalım.
+    var tablo = new PdfPTable(9)
+    {
+        //Tablonun genişliğini tanımlıyoruz.
+        TotalWidth = 1500
+    };
+
+    //Tablo içindeki yazı (ürün bilgisi) fontunu tanımlayalım
+    var fontYazi = FontFactory.GetFont("Tahoma", 11);
+
+    //Tablo içindeki başlık fontunu tanımlayalım.
+    var fontBaslik = FontFactory.GetFont("Tahoma", 8, Font.BOLD);
+
+    ////Tablonun başlık satırını ilk satırın özelliklerini alarak oluşturalım.
+    //foreach (var ozellik in ilkSatir.GetType().GetProperties())
+    //{
+    //    //Başlık satırına hücre ekleyelim. Hücrede özelliğin adı yazsın ve fontu fontBaslik olsun
+    //    tablo.AddCell(new Phrase(ozellik.GetValue(ilkSatir, null).ToString(), fontYazi));
+    //}
+
+    //Tabloya ürün (kayıt) satırlarını tek tek ekleyelim.
+    tablo.AddCell(new Phrase("Numara", fontBaslik));
+    tablo.AddCell(new Phrase("Yil", fontBaslik));
+    tablo.AddCell(new Phrase("Plaka", fontBaslik));
+    tablo.AddCell(new Phrase("Kasa Tipi", fontBaslik));
+    tablo.AddCell(new Phrase("Renk", fontBaslik));
+    tablo.AddCell(new Phrase("Silindir Hacmi", fontBaslik));
+    tablo.AddCell(new Phrase("Yakit Tipi", fontBaslik));
+    tablo.AddCell(new Phrase("Gunluk Ucret", fontBaslik));
+    tablo.AddCell(new Phrase("Toplam Kiralanma Sayisi", fontBaslik));
+
+    foreach (var arac in araclar)
+    {
+        int sayac = 0;
+        //Tabloya ekleyeceğimiz satırın sütunlarını (özelliklerini) tek tek ekleyelim.
+        foreach (var aracOzellik in arac.GetType().GetProperties())
+        {
+            if (aracOzellik.GetValue(arac, null) != null)
+            {
+                //Her satıra bir hücre ekliyoruz. Hücrede özelliğin değeri yazsın ve fontu fontYazi olsun
+                tablo.AddCell(new Phrase(aracOzellik.GetValue(arac, null).ToString(), fontYazi));
+            }
+
+
+
+
+        }
+        sayac = 0;
+    }
+
+    //Tabloya başlık ve satır ekleme işlemlerini tamamladıktan sonra tabloyu pdfDosyasi'na ekleyelim
+    pdfDosyasi.Add(tablo);
+
+    //İşlemler tamamlandıktan sonra pdfDosyasi'nı kapatalım.
+    pdfDosyasi.Close();
+}

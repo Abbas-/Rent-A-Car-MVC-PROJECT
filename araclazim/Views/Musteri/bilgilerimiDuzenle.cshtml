@@ -1,0 +1,147 @@
+﻿@model Tuple<List<Musteri>, List<NufusBilgileri>, List<EhliyetBilgileri>>
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Müşteri Paneli</title>
+
+    <!-- CSS -->
+    <link href="~/AdminPaneli/css/transdmin.css" rel="stylesheet" type="text/css" media="screen" />
+    <!--[if IE 6]><link rel="stylesheet" type="text/css" media="screen" href="style/css/ie6.css" /><![endif]-->
+    <!--[if IE 7]><link rel="stylesheet" type="text/css" media="screen" href="style/css/ie7.css" /><![endif]-->
+    <!-- JavaScripts-->
+    <script type="text/javascript" src="~/AdminPaneli/js/jquery.js"></script>
+    <script type="text/javascript" src="~/AdminPaneli/js/jNice.js"></script>
+</head>
+
+<body>
+    <div id="wrapper">
+        <!-- h1 tag stays for the logo, you can use the a tag for linking the index page -->
+        <br />
+
+        <!-- You can name the links with lowercase, they will be transformed to uppercase by CSS, we prefered to name them with uppercase to have the same effect with disabled stylesheet -->
+        <ul id="mainNav">
+
+            <li class="logout">@Html.ActionLink("LOGOUT", "Index", "Home")</li>
+        </ul>
+        <!-- // #end mainNav -->
+
+        <div id="containerHolder">
+            <div id="container">
+                <div id="sidebar">
+                    <ul class="sideNav">
+                        <li>@Html.ActionLink("Kiraladığım Araçlar", "Kiraladiklarim", "Musteri")</li>
+                       
+                        <li><b>@Html.ActionLink("Bilgilerimi Düzenle", "bilgilerimiDuzenle", "Musteri")</b></li>
+
+                    </ul>
+                    <!-- // .sideNav -->
+                </div>
+                <!-- // #sidebar -->
+                <!-- h2 stays for breadcrumbs -->
+
+                <div id="main">
+
+                    <form action="" class="jNice">
+
+                        <br /><br />
+
+
+                        <fieldset>
+                            <p>
+                                <h4>UYARI: Bilgilerinizi güncelleyebilmek için tekrardan giriş yapmanız gerekmektedir.</h4>
+                                <br /><br />
+                                <label>Kullanıcı Adı:</label>
+                                <input type="#{type}" id="#{label}" name="kulAd1" required="required" />
+
+
+
+
+                            </p>
+                            <p>
+                                <label>Şifre:</label>
+                                <input type="#{type}" id="#{label}" name="sifre" required="required" />
+                            </p>
+                            <p>
+                                <input type="submit" value="Bilgilerimi Getir" />
+                            </p>
+                        </fieldset>
+
+                        @using (Html.BeginForm("bilgilerimiDuzenleControl", "Musteri", FormMethod.Post, new { @class = "form-horizontal" }))
+                        {
+                        }
+
+                        @foreach (var Musteri in Model.Item1)
+                        {
+                            using (Html.BeginForm("bilgilerimiDuzenleControl", "Musteri", FormMethod.Post, new { @class = "form-horizontal" }))
+                            {
+
+
+                                <h3>Kişisel Bigiler</h3>
+                                <fieldset>
+
+                                    <p>
+                                        <label>Ad:</label>
+                                        <input type="#{type}" id="#{label}" name="ad" required="required" value="@Musteri.ad" />
+
+                                    </p>
+                                    <p>
+                                        <label>Soyad:</label>
+                                        <input type="#{type}" id="#{label}" name="soyad" required="required" value="@Musteri.soyad" />
+                                    </p>
+                                    <p>
+                                        <label>Telefon:</label>
+                                        <input type="#{type}" id="#{label}" name="tel" required="required" value="@Musteri.telefon" />
+                                    </p>
+
+                                    <p>
+                                        <label>Adres:</label>
+                                        <input type="#{type}" id="#{label}" name="adres" required="required" value="@Musteri.adres" />
+
+                                    </p>
+                                    <p>
+                                        <label>E-Mail:</label>
+                                        <input type="#{type}" id="#{label}" name="email" required="required" value="@Musteri.eMail" />
+
+                                    </p>
+                                    <p>
+                                        <label>Kullanıcı Adı:</label>
+                                        <input type="#{type}" id="#{label}" name="kulAd" required="required" value="@Musteri.kullaniciAdi" />
+
+                                    </p>
+                                    <p>
+                                        <label>Şifre:</label>
+                                        <input type="#{type}" id="#{label}" name="sifre" required="required" value="@Musteri.sifre" />
+
+                                    </p>
+
+
+                                    <input type="submit" value="Bilgilerimi Güncelle" />
+
+                                </fieldset>
+                            }
+
+
+                        }
+
+                    </form>
+
+                </div>
+                <!-- // #main -->
+
+                <div class="clear"></div>
+            </div>
+            <!-- // #container -->
+        </div>
+        <!-- // #containerHolder -->
+
+
+    </div>
+    <!-- // #wrapper -->
+</body>
+</html>

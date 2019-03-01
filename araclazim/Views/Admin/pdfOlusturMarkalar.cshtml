@@ -1,0 +1,73 @@
+﻿@using iTextSharp.text;
+@using iTextSharp.text.pdf;
+
+@{
+    //Sayfanın çalıştırıldığında PDF dosyası gibi görünebilmesi için header'ını değiştiriyoruz.
+    Response.AddHeader("Content-disposition", "attachment; filename=markalar.pdf");
+    Response.ContentType = "application/octet-stream";
+
+    var markalar = ViewBag.Markalar;
+
+    //Tablo sütunlarını tanımlamak için ilk satırı alıyoruz.
+
+    //var ilkSatir = ViewBag.baslik;
+
+    //PDF dosyası oluşturmak için Document türünden değişken tanımlıyoruz.
+    var pdfDosyasi = new Document();
+
+    //Dosya türünün PDF olacağını belirtiyoruz.
+    PdfWriter.GetInstance(pdfDosyasi, Response.OutputStream);
+
+    //Dosyanın sayfa boyutlarını belirtiyoruz (A4 boyutlarında olsuns)
+    pdfDosyasi.SetPageSize(PageSize.A5.Rotate());
+
+    //Dosyaya ekleme işlemi yapmak için açıyoruz.
+    pdfDosyasi.Open();
+
+
+    //Kayıtları listeleyeceğimiz tabloyu oluşturalım.
+    var tablo = new PdfPTable(2)
+    {
+        //Tablonun genişliğini tanımlıyoruz.
+        TotalWidth = 1500
+    };
+
+    //Tablo içindeki yazı (ürün bilgisi) fontunu tanımlayalım
+    var fontYazi = FontFactory.GetFont("Tahoma", 10);
+
+    //Tablo içindeki başlık fontunu tanımlayalım.
+    var fontBaslik = FontFactory.GetFont("Tahoma", 8, Font.BOLD);
+
+    ////Tablonun başlık satırını ilk satırın özelliklerini alarak oluşturalım.
+    //foreach (var ozellik in ilkSatir.GetType().GetProperties())
+    //{
+    //    //Başlık satırına hücre ekleyelim. Hücrede özelliğin adı yazsın ve fontu fontBaslik olsun
+    //    tablo.AddCell(new Phrase(ozellik.GetValue(ilkSatir, null).ToString(), fontYazi));
+    //}
+
+    //Tabloya ürün (kayıt) satırlarını tek tek ekleyelim.
+    tablo.AddCell(new Phrase("Numara", fontBaslik));
+    tablo.AddCell(new Phrase("Marka Adi", fontBaslik));
+    
+
+    foreach (var marka in markalar)
+    {
+        int sayac = 0;
+        //Tabloya ekleyeceğimiz satırın sütunlarını (özelliklerini) tek tek ekleyelim.
+        foreach (var markaOzellik in marka.GetType().GetProperties())
+        {
+            if (markaOzellik.GetValue(marka, null) != null)
+            {
+                //Her satıra bir hücre ekliyoruz. Hücrede özelliğin değeri yazsın ve fontu fontYazi olsun
+                tablo.AddCell(new Phrase(markaOzellik.GetValue(marka, null).ToString(), fontYazi));
+            }
+        }
+        sayac = 0;
+    }
+
+    //Tabloya başlık ve satır ekleme işlemlerini tamamladıktan sonra tabloyu pdfDosyasi'na ekleyelim
+    pdfDosyasi.Add(tablo);
+
+    //İşlemler tamamlandıktan sonra pdfDosyasi'nı kapatalım.
+    pdfDosyasi.Close();
+}

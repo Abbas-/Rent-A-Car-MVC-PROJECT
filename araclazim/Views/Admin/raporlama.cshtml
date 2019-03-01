@@ -1,0 +1,82 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Admin Paneli</title>
+
+    <!-- CSS -->
+    <link href="~/AdminPaneli/css/transdmin.css" rel="stylesheet" type="text/css" media="screen" />
+    <!--[if IE 6]><link rel="stylesheet" type="text/css" media="screen" href="style/css/ie6.css" /><![endif]-->
+    <!--[if IE 7]><link rel="stylesheet" type="text/css" media="screen" href="style/css/ie7.css" /><![endif]-->
+    <!-- JavaScripts-->
+    <script type="text/javascript" src="~/AdminPaneli/js/jquery.js"></script>
+    <script type="text/javascript" src="~/AdminPaneli/js/jNice.js"></script>
+</head>
+
+<body>
+    <div id="wrapper">
+        <!-- h1 tag stays for the logo, you can use the a tag for linking the index page -->
+        <br />
+
+        <!-- You can name the links with lowercase, they will be transformed to uppercase by CSS, we prefered to name them with uppercase to have the same effect with disabled stylesheet -->
+        <ul id="mainNav">
+
+            <li class="logout">@Html.ActionLink("LOGOUT", "Index", "Home")</li>
+        </ul>
+        <!-- // #end mainNav -->
+
+        <div id="containerHolder">
+            <div id="container">
+                <div id="sidebar">
+                    <ul class="sideNav">
+                        <li>@Html.ActionLink("İstekler", "istekler", "Admin")</li>
+                        <li>@Html.ActionLink("Araç Ekle", "aracEkle", "Admin")</li>
+                        <li>@Html.ActionLink("Araç Sil", "aracSil", "Admin")</li>
+                        <li> @Html.ActionLink("Araç Bilgilerini Düzenle", "aracBilgileriniDuzenle", "Admin") </li>
+                        <li>@Html.ActionLink("Kiradan Gelen Araçlar ", "kiradanGelenAraclar", "Admin") </li>
+                        <li>@Html.ActionLink("Admin Ekle ", "adminEkle", "Admin")</li>
+                        <li><b>@Html.ActionLink("Raporlama", "raporlama", "Admin")</b></li>
+                    </ul>
+                    <!-- // .sideNav -->
+                </div>
+                <!-- // #sidebar -->
+                <!-- h2 stays for breadcrumbs -->
+
+                <div id="main">
+                    <br />
+                    <br /><br />
+                    @using (Html.BeginForm("pdfOlusturMusteri", "Admin", FormMethod.Post, new { @class = "form-horizontal" }))
+                    {
+                        <p><label>Müşteri Raporu Al   :</label><input type="submit" value="Pdf Al" /></p>
+                    }
+                    <br />
+                    <br /><br />
+                    @using (Html.BeginForm("pdfOlusturAraclar", "Admin", FormMethod.Post, new { @class = "form-horizontal" }))
+                    {
+                        <p><label>Araçlar Raporu Al   :</label><input type="submit" value="Pdf Al" /></p>
+                    }
+                    <br />
+                    <br /><br />
+                    @using (Html.BeginForm("pdfOlusturMarkalar", "Admin", FormMethod.Post, new { @class = "form-horizontal" }))
+                    {
+                        <p><label>Marka Raporu Al   :</label><input type="submit" value="Pdf Al" /></p>
+                    }
+                </div>
+                <!-- // #main -->
+
+                <div class="clear"></div>
+            </div>
+            <!-- // #container -->
+        </div>
+        <!-- // #containerHolder -->
+
+
+    </div>
+    <!-- // #wrapper -->
+</body>
+</html>

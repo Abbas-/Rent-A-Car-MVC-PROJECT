@@ -1,0 +1,164 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Admin Paneli</title>
+
+    <!-- CSS -->
+    <link href="~/AdminPaneli/css/transdmin.css" rel="stylesheet" type="text/css" media="screen" />
+    <!--[if IE 6]><link rel="stylesheet" type="text/css" media="screen" href="style/css/ie6.css" /><![endif]-->
+    <!--[if IE 7]><link rel="stylesheet" type="text/css" media="screen" href="style/css/ie7.css" /><![endif]-->
+    <!-- JavaScripts-->
+    <script type="text/javascript" src="~/AdminPaneli/js/jquery.js"></script>
+    <script type="text/javascript" src="~/AdminPaneli/js/jNice.js"></script>
+</head>
+
+<body>
+    <div id="wrapper">
+        <!-- h1 tag stays for the logo, you can use the a tag for linking the index page -->
+        <br />
+
+        <!-- You can name the links with lowercase, they will be transformed to uppercase by CSS, we prefered to name them with uppercase to have the same effect with disabled stylesheet -->
+        <ul id="mainNav">
+
+            <li class="logout">@Html.ActionLink("LOGOUT", "Index", "Home")</li>
+        </ul>
+        <!-- // #end mainNav -->
+
+        <div id="containerHolder">
+            <div id="container">
+                <div id="sidebar">
+                    <ul class="sideNav">
+                        <li>@Html.ActionLink("İstekler", "istekler", "Admin")</li>
+                        <li><b>@Html.ActionLink("Araç Ekle", "aracEkle", "Admin")</b></li>
+                        <li>@Html.ActionLink("Araç Sil", "aracSil", "Admin")</li>
+                        <li> @Html.ActionLink("Araç Bilgilerini Düzenle", "aracBilgileriniDuzenle", "Admin") </li>
+                        <li>@Html.ActionLink("Kiradan Gelen Araçlar ", "kiradanGelenAraclar", "Admin") </li>
+                        <li>@Html.ActionLink("Admin Ekle ", "adminEkle", "Admin") </li>
+                        <li>@Html.ActionLink("Raporlama", "raporlama", "Admin")</li>
+                    </ul>
+                    <!-- // .sideNav -->
+                </div>
+                <!-- // #sidebar -->
+                <!-- h2 stays for breadcrumbs -->
+
+              
+                <div id="main">
+                    @using (Html.BeginForm("AracEkleControl", "Admin", FormMethod.Post, new { @class = "form-horizontal" }))
+                    {
+                        <form action="" class="jNice">
+                            <h3>Araç Ekleme</h3>
+
+                            <fieldset>
+                                <p>
+                                    <label>Markası:</label>
+
+                                    <select name="markalar">
+                                        @{
+                                            using (araclazim db = new araclazim())
+                                            {
+                                                foreach (Marka item in db.Marka)
+                                                {
+                                                   <option>@item.marka</option>
+                                                }
+                                            }
+                                        }
+                                    </select>                                   
+                                </p>
+                                <p>
+                                    <label>Modeli:</label>
+                                    <input type="text" class="text-long" name="txtModel" required=required />
+                                   
+                                </p>
+
+                                <p>
+                                    <label>Yıl: </label>
+                                    <select name="yil">
+                                        @{
+
+                                            int yil = DateTime.Today.Year;
+                                            for (int i = 0; i < 30; i++)
+                                            {
+                                                <option>@yil</option>
+                                                yil--;
+                                            }
+                                        }
+
+                                    </select>
+                                </p>
+                                <p>
+                                    <label>Plaka:</label>
+                                    <input type="text" class="text-medium" name="txtPlaka" required=required />
+                                </p>
+                                <p>
+                                    <label>Kasa Tipi:</label>
+                                    <select name="kasa_tipi">
+                                        <option>Hatchback</option>
+                                        <option>Sedan</option>
+                                    </select>
+                                </p>
+                                <p>
+                                    <label>Renk:</label>
+                                    <select name="renk">
+                                        <option>Beyaz</option>
+                                        <option>Gri</option>
+                                        <option>Kırmızı</option>
+                                        <option>Mavi</option>
+                                        <option>Pembe</option>
+                                        <option>Siyah</option>
+                                        <option>Yeşil</option>
+                                    </select>
+                                </p>
+                                <p>
+
+                                    <label>Silindir Hacmi:</label>
+                                    <select name="silindir_hacmi">
+                                        <option>1.2</option>
+                                        <option>1.4</option>
+                                        <option>1.6</option>
+                                        <option>1.8</option>
+                                        <option>2.0</option>
+                                        <option>3.0</option>
+                                    </select>
+                                </p>
+                                <p>
+                                    <label>Günlük Ücret:</label>
+                                    <input type="text" class="text-long" name="txtGunlukUcret" required=required />
+                                </p>
+                                <p>
+                                    <label>Yakit Tipi:</label>
+                                    <select name="yakit_tipi">
+                                        <option>Benzin</option>
+                                        <option>Dizel</option>
+                                        <option>LPG</option>
+                                        <option>Benzin-LPG</option>
+
+                                    </select>
+                                </p>
+                                <input type="submit" value="Aracı Ekle" />
+                            </fieldset>
+
+                        </form>
+                    }
+                </div>
+
+
+                <!-- // #main -->
+
+                <div class="clear"></div>
+
+            </div>
+            <!-- // #container -->
+        </div>
+        <!-- // #containerHolder -->
+
+
+    </div>
+    <!-- // #wrapper -->
+</body>
+</html>

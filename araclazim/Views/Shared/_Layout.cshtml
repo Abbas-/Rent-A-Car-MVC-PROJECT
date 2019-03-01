@@ -1,0 +1,110 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="~/css/style.css" rel="stylesheet" />
+    <link href='http://fonts.googleapis.com/css?family=Playball' rel='stylesheet' type='text/css'>
+    <script src="~/js/jquery.min.js"></script>
+    <script src="~/js/script.js"></script>
+    <script src="~/js/superfish.js"></script>
+    <title>CarsOnline</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+
+</head>
+<body>
+    <div class="header-bg">
+        <div class="wrap">
+            <div class="h-bg">
+                <div class="total">
+                    <div class="header">
+                        <div class="box_header_user_menu">                         
+                            <ul class="user_menu"><li class="">@Html.ActionLink("Hesap Oluştur/Giriş Yap", "Login", "Home")<a href=""></a></li></ul>
+                           
+                        </div>
+                        <div class="header-right">
+                            <ul class="follow_icon">
+                                <li><a href="#"><img src="~/images/icon.png" alt="" /></a> </li>
+                                <li><a href="#"><img src="~/images/icon1.png" alt="" /></a></li>
+                                <li><a href="#"><img src="~/images/icon2.png" alt="" /></a></li>
+                                <li><a href="#"><img src="~/images/icon3.png" alt="" /></a></li>
+                            </ul>
+                        </div><div class="clear"></div>
+                        <div class="header-bot">
+                            <div class="logo">
+                               <img src="~/images/logo.png" alt="" />
+                            </div>
+
+                            <div class="clear"></div>
+                        </div>
+                    </div>
+
+
+                    <div class="menu">
+                        <div class="top-nav" align="center">
+                            <ul>
+                                <li>@Html.ActionLink("Ana Sayfa", "Index", "Home")</li>
+                                <li>@Html.ActionLink("Araçlar", "Araclar", "Home")</li>
+                                <li>@Html.ActionLink("Hakkımızda", "Hakkimizda", "Home")</li>
+                                <li>@Html.ActionLink("İletişim", "Iletisim", "Home")</li>
+                            </ul>
+                            <div class="clear"></div>
+                        </div>
+                       
+                    </div>
+
+
+                </div>
+            </div>
+
+
+
+            <div class="container body-content">
+                @RenderBody()
+                <hr />
+
+                <!-----------FOOTER------------>
+             
+                    <div class="footer-bottom">
+                        <div class="social-icons" align="center">
+                            <ul>
+                                <img src="~/images/icon_1.png" />
+                                <img src="~/images/icon_2.png" />
+                                <img src="~/images/icon_3.png" />
+                            </ul>
+                        </div>
+
+                        <div class="copy">
+
+                            <div class="row">
+                                <div class="col-md-4" align="left">
+                                    <p>Tüm Haklarımız Saklıdır.</p>
+                                    <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+                                </div>
+                                <div class="col-md-4" align="center">
+                                   
+                                </div>
+                                <div class="col-md-4" align="right">
+                                    <p align="right">abbascolgecen@gmail.com | 0554-511-26-27</p>
+                                    <p align="right">tahircandanaci@gmail.com | 0539-635-47-69</p>
+
+                                </div>
+                            </div>
+
+
+                        </div>
+                       
+                    </div>
+                   
+              
+                <!-----------FOOTER------------>
+            </div>
+
+            @Scripts.Render("~/bundles/jquery")
+            @Scripts.Render("~/bundles/bootstrap")
+            @RenderSection("scripts", required: false)
+        </div>
+    </div>
+</body>
+</html>

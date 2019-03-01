@@ -1,0 +1,96 @@
+﻿@model Tuple<List<RezervasyonIstekleri>, List<Araclar>, List<Musteri>>
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Müşteri Paneli</title>
+
+    <!-- CSS -->
+    <link href="~/AdminPaneli/css/transdmin.css" rel="stylesheet" type="text/css" media="screen" />
+    <!--[if IE 6]><link rel="stylesheet" type="text/css" media="screen" href="style/css/ie6.css" /><![endif]-->
+    <!--[if IE 7]><link rel="stylesheet" type="text/css" media="screen" href="style/css/ie7.css" /><![endif]-->
+    <!-- JavaScripts-->
+    <script type="text/javascript" src="~/AdminPaneli/js/jquery.js"></script>
+    <script type="text/javascript" src="~/AdminPaneli/js/jNice.js"></script>
+</head>
+
+<body>
+    <div id="wrapper">
+        <!-- h1 tag stays for the logo, you can use the a tag for linking the index page -->
+        <br />
+
+        <!-- You can name the links with lowercase, they will be transformed to uppercase by CSS, we prefered to name them with uppercase to have the same effect with disabled stylesheet -->
+        <ul id="mainNav">
+
+            <li class="logout">@Html.ActionLink("LOGOUT", "Index", "Home")</li>
+        </ul>
+        <!-- // #end mainNav -->
+
+        <div id="containerHolder">
+            <div id="container">
+                <div id="sidebar">
+                    <ul class="sideNav">
+                        <li><b>@Html.ActionLink("Yaptığım İstekler", "isteklerim", "Musteri")</b></li>
+                       
+                        <li>@Html.ActionLink("Bilgilerimi Düzenle", "bilgilerimiDuzenle", "Musteri")</li>
+                       
+                    </ul>
+                    <!-- // .sideNav -->
+                </div>
+                <!-- // #sidebar -->
+                <!-- h2 stays for breadcrumbs -->
+
+                <div id="main">
+
+                    <form action="" class="jNice">
+
+                        <br /><br />                      
+                       
+                        @using (Html.BeginForm("aracBilgileriniDuzenleControl", "Admin", FormMethod.Post, new { @class = "form-horizontal" }))
+                        {
+                        }
+                        <p><b><em>***TESLİMAT GÜNÜNDE İSTEK NUMARANIZ ÜSTÜNDEN TESLİMAT İŞLEMİ GERÇEKLEŞTİRİLECEKTİR.</em> </b></p>
+                        <br />
+                        @foreach (var istek in Model.Item1)
+                        {
+                            if (istek.aracId != null)
+                            {
+                                <fieldset>
+                                    <p>
+                                        <label>İstek Numaranız : <b>@istek.Id</b></label>
+                                        <label align="right">İsteği Yaptığım Tarih:@istek.istekTarihi</label>
+                                        <label><b>Plaka:</b>@istek.aracId.plaka</label>
+                                        <label><b>Adı-Soyadı:</b>@istek.musteriId.ad @istek.musteriId.soyad</label>
+                                        <label><b>Alım Tarihi:</b>@istek.planlananAlimTarihi - <b>Teslim Tarihi:</b>@istek.planlananTeslimTarihi</label>
+                                        <label><b>Adı-Soyadı:</b> @istek.onayDurumu</label>
+                                        <label align="right">Ödenecek Kiralama Ücreti : @istek.ucret <b>₺</b> </label>
+                                    </p>
+
+                                </fieldset>
+                            }
+
+
+
+                        }
+
+                    </form>
+
+                </div>
+
+                <!-- // #main -->
+
+                <div class="clear"></div>
+            </div>
+            <!-- // #container -->
+        </div>
+        <!-- // #containerHolder -->
+
+
+    </div>
+    <!-- // #wrapper -->
+</body>
+</html>

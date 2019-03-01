@@ -1,0 +1,182 @@
+﻿
+@{
+    ViewBag.Title = "Login";
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Material Login Form</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
+    <link rel='stylesheet prefetch' href='http://fonts.googleapis.com/css?family=Roboto:400,100,300,500,700,900|RobotoDraft:400,100,300,500,700,900'>
+    <link rel='stylesheet prefetch' href='http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css'>
+
+    <link href="~/Login_Register/stylerr.css" rel="stylesheet" />
+
+
+</head>
+<body>
+
+
+    <div class="container">
+        <div class="card"></div>
+        <div class="card">
+            <h1 class="title">Hesap Oluştur</h1>
+
+            @using (Html.BeginForm("RegisterControl", "Home", FormMethod.Post, new { @class = "form-horizontal" }))
+            {
+                <form>       
+                    <div class="input-container">
+                        <input type="#{type}" id="#{label}" name="ad" required="required" />
+                        <label for="#{label}">Ad</label>
+                        <div class="bar"></div>
+                    </div>
+                    <div class="input-container">
+                        <input type="#{type}" id="#{label}" name="soyad" required="required" />
+                        <label for="#{label}">Soyad</label>
+                        <div class="bar"></div>
+                    </div>  
+                    <div class="input-container">
+                        <input type="#{type}" id="#{label}" name="telefon" required="required" />
+                        <label for="#{label}">Telefon</label>
+                        <div class="bar"></div>
+                    </div>
+                    <div class="input-container">
+                        <input type="#{type}" id="#{label}" name="adres" required="required" />
+                        <label for="#{label}">Adres </label>
+                        <div class="bar"></div>
+                    </div>           
+                        <div class="input-container">
+                            <input type="#{type}" id="#{label}" name="eMail" required="required" />
+                            <label for="#{label}">E-Mail</label>
+                            <div class="bar"></div>
+                        </div>
+                    <div class="input-container">
+                        <input type="#{type}" id="#{label}" name="kulAd" required="required" />
+                        <label for="#{label}">Kullanıcı Adı</label>
+                        <div class="bar"></div>
+                    </div>
+                        <div class="input-container">
+                            <input type="password" id="#{label}" name="sifre" required="required" />
+                            <label for="#{label}">Şifre </label>
+                            <div class="bar"></div>
+                        </div>
+                        <div class="input-container">
+                            <input type="password" id="#{label}" name="sifre2" required="required" />
+                            <label for="#{label}">Tekrar Şifre </label>
+                            <div class="bar"></div>
+                        </div>             
+                         
+                   <h1 class="title">Nüfus Bilgileri</h1>
+                    <div class="input-container">
+                        <input type="#{type}" id="#{label}" name="tc" required="required" />
+                        <label for="#{label}">Tc No</label>
+                        <div class="bar"></div>
+                    </div>
+                    <div class="input-container">
+                        <input type="#{type}" id="#{label}" name="babaAdi" required="required" />
+                        <label for="#{label}">Baba Adı </label>
+                        <div class="bar"></div>
+                    </div>
+                    <div class="input-container">
+                        <input type="#{type}" id="#{label}" name="anaAdi" required="required" />
+                        <label for="#{label}">Ana Adı </label>
+                        <div class="bar"></div>
+                    </div>
+                    <div class="input-container">
+                        <input type="#{type}" id="#{label}" name="dogum_yeri" required="required" />
+                        <label for="#{label}">Doğum Yeri</label>
+                        <div class="bar"></div>
+                    </div>
+                    <div class="input-container">
+                        <input type="#{type}" id="#{label}" name="dogum_tarihi" required="required" />
+                        <label for="#{label}">Doğum Tarihi </label>
+                        <div class="bar"></div>
+                    </div>
+                    <div class="input-container">
+                        <input type="#{type}" id="#{label}" name="medeni_hal" required="required" />
+                        <label for="#{label}">Medeni Hal </label>
+                        <div class="bar"></div>
+                    </div>
+                    <div class="input-container">
+                        <input type="#{type}" id="#{label}" name="il" required="required" />
+                        <label for="#{label}">İl </label>
+                        <div class="bar"></div>
+                    </div>
+
+
+                    <h1 class="title">Ehliyet Bilgileri</h1>
+                   
+                    <div class="input-container">
+                        <input type="#{type}" id="#{label}" name="ehliyet_no" required="required" />
+                        <label for="#{label}">Ehliyet No </label>
+                        <div class="bar"></div>
+                    </div>
+                    <div class="input-container">
+                        <input type="#{type}" id="#{label}" name="il_ehliyet" required="required" />
+                        <label for="#{label}">İl</label>
+                        <div class="bar"></div>
+                    </div>
+                    <div class="input-container">
+                        <input type="#{type}" id="#{label}" name="belge_no" required="required" />
+                        <label for="#{label}">Belge No </label>
+                        <div class="bar"></div>
+                    </div>
+                    <div class="input-container">
+                        <input type="#{type}" id="#{label}" name="kullanilan_cihaz" required="required" />
+                        <label for="#{label}">Kullanılan Cihaz</label>
+                        <div class="bar"></div>
+                    </div>
+                    <div class="input-container">
+                        <input type="#{type}" id="#{label}" name="ehliyet_sinifi" required="required" />
+                        <label for="#{label}">Ehliyet Sınıfı</label>
+                        <div class="bar"></div>
+                    </div>
+                    <div class="button-container">
+                        <button><span>Kaydet</span></button>
+                    </div>
+                </form>
+            }
+
+
+
+           
+        </div>
+        <div class="card alt">
+            <div class="toggle"></div>
+            <h1 class="title">
+                Giriş Yap
+                <div class="close"></div>
+            </h1>
+            @using (Html.BeginForm("LoginControl", "Home", FormMethod.Post, new { @class = "form-horizontal" }))
+            {
+                <form>
+                    <div class="input-container">
+                        <input type="#{type}" id="#{label}" name="kulAd" required="required" />
+                        <label for="#{label}">Kullanıcı Adı</label>
+                        <div class="bar"></div>
+                    </div>
+                    <div class="input-container">
+                        <input type="password" id="#{label}" name="sifre" required="required" />
+                        <label for="#{label}">Şifre </label>
+                        <div class="bar"></div>
+                    </div>
+                    <div class="button-container">
+
+
+                        <button><span>Giriş Yap</span></button>
+
+                    </div>
+
+
+                    <div class="footer"><a href="#"></a></div>
+                </form>
+            }
+        </div>
+    </div>
+    <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+    <script src="~/Login_Register/index.js"></script>
+
+</body>
+</html>

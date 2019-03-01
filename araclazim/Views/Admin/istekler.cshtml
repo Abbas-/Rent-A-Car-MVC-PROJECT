@@ -1,0 +1,114 @@
+﻿@model Tuple<List<RezervasyonIstekleri>, List<Araclar>, List<Musteri>>
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Admin Paneli</title>
+
+    <!-- CSS -->
+    <link href="~/AdminPaneli/css/transdmin.css" rel="stylesheet" type="text/css" media="screen" />
+    <!--[if IE 6]><link rel="stylesheet" type="text/css" media="screen" href="style/css/ie6.css" /><![endif]-->
+    <!--[if IE 7]><link rel="stylesheet" type="text/css" media="screen" href="style/css/ie7.css" /><![endif]-->
+    <!-- JavaScripts-->
+    <script type="text/javascript" src="~/AdminPaneli/js/jquery.js"></script>
+    <script type="text/javascript" src="~/AdminPaneli/js/jNice.js"></script>
+</head>
+
+<body>
+    <div id="wrapper">
+        <!-- h1 tag stays for the logo, you can use the a tag for linking the index page -->
+        <br />
+
+        <!-- You can name the links with lowercase, they will be transformed to uppercase by CSS, we prefered to name them with uppercase to have the same effect with disabled stylesheet -->
+        <ul id="mainNav">
+
+            <li class="logout">@Html.ActionLink("LOGOUT", "Index", "Home")</li>
+        </ul>
+        <!-- // #end mainNav -->
+
+        <div id="containerHolder">
+            <div id="container">
+                <div id="sidebar">
+                    <ul class="sideNav">
+                        <li><b>@Html.ActionLink("İstekler", "istekler", "Admin")</b></li>
+                        <li>@Html.ActionLink("Araç Ekle", "aracEkle", "Admin")</li>
+                        <li>@Html.ActionLink("Araç Sil", "aracSil", "Admin")</li>
+                        <li> @Html.ActionLink("Araç Bilgilerini Düzenle", "aracBilgileriniDuzenle", "Admin") </li>
+                        <li>@Html.ActionLink("Kiradan Gelen Araçlar ", "kiradanGelenAraclar", "Admin") </li>
+                        <li>@Html.ActionLink("Admin Ekle ", "adminEkle", "Admin") </li>
+                        <li>@Html.ActionLink("Raporlama", "raporlama", "Admin")</li>
+                    </ul>
+                    <!-- // .sideNav -->
+                </div>
+                <!-- // #sidebar -->
+                <!-- h2 stays for breadcrumbs -->
+
+
+                <div id="main">
+
+                    <form action="" class="jNice">
+                        <h3>Araçlara Yapılan Rezervasyon İstekleri</h3>
+                        @using (Html.BeginForm("aracBilgileriniDuzenleControl", "Admin", FormMethod.Post, new { @class = "form-horizontal" }))
+                        {
+                        }
+
+                        @foreach (var istek in Model.Item1)
+                        {
+
+                            if (istek.onayDurumu.ToString().Equals("OnayBekleniyor") && istek.aracId!=null)
+                            {
+                                <fieldset>
+
+                                    <p>
+                                        <label align="right">İstek Yapılış Zamanı:@istek.istekTarihi</label>
+                                        <label><b>Aracın Plakası:</b>@istek.aracId.plaka</label>
+                                        <label><b>Adı-Soyadı:</b>@istek.musteriId.ad @istek.musteriId.soyad</label>
+                                        <label><b>Telefon:</b>@istek.musteriId.telefon</label>
+                                        <label><b>Mail:</b>@istek.musteriId.eMail</label>
+                                        <label><b>Alım Tarihi:</b>@istek.planlananAlimTarihi - <b>Teslim Tarihi:</b>@istek.planlananTeslimTarihi</label>
+                                        <label align="right">Kazanılacak Toplam Ücret : @istek.ucret <b>₺</b> </label>
+                                    </p>
+                                      @using (Html.BeginForm("isteklerControlOnay", "Admin", FormMethod.Post, new { @class = "form-horizontal" }))
+                                        {
+                                            <input type="submit" value="Onayla" onclick="onay()" id="onayla" />                                          
+                                            <input type="text" value="@istek.Id" class="text-long" name="istekId" hidden=hidden />
+                                        }
+                                   
+                                    <p>
+
+                                        @using (Html.BeginForm("isteklerControlRed", "Admin", FormMethod.Post, new { @class = "form-horizontal" }))
+                                        {
+
+                                            <input type="submit" value="Reddet" onclick="red()" id="reddet" />                                         
+                                            <input type="text" value="@istek.Id" class="text-long" name="istekId" hidden=hidden />
+                                        }
+
+                                    </p>
+
+
+
+
+
+                                </fieldset>
+                            }
+
+                        }
+                        
+                    </form>
+
+                </div>
+                <div class="clear"></div>
+            </div>
+            <!-- // #container -->
+        </div>
+        <!-- // #containerHolder -->
+
+
+    </div>
+    <!-- // #wrapper -->
+</body>
+</html>
